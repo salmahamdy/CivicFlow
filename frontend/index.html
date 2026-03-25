@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CivicFlow — Business Registration</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:     #0e0e10;
+      --paper:   #f4f1eb;
+      --cream:   #ede9e0;
+      --civic:   #1a3a2a;
+      --accent:  #c8f04a;
+      --muted:   #6b7060;
+      --border:  #ccc9bf;
+      --danger:  #e05252;
+      --success: #2e7d52;
+      --radius:  4px;
+      --mono: 'DM Mono', monospace;
+      --sans: 'Syne', sans-serif;
+    }
+
+    html { font-size: 16px; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Header ────────────────────────────────── */
+    header {
+      background: var(--civic);
+      color: var(--accent);
+      padding: 18px 40px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border-bottom: 3px solid var(--accent);
+    }
+    header .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--accent);
+    }
+    header .tagline {
+      font-size: 0.78rem;
+      font-family: var(--mono);
+      color: rgba(200,240,74,0.55);
+      margin-left: auto;
+      letter-spacing: 0.06em;
+    }
+
+    /* ── Layout ────────────────────────────────── */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 52px 24px 80px;
+      flex: 1;
+    }
+
+    .hero {
+      margin-bottom: 44px;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      color: var(--civic);
+    }
+    .hero h1 span { color: var(--success); }
+    .hero p {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 1.05rem;
+      font-family: var(--mono);
+      max-width: 520px;
+    }
+
+    /* ── Input Panel ───────────────────────────── */
+    .input-panel {
+      background: white;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 28px 24px;
+      margin-bottom: 32px;
+      box-shadow: 4px 4px 0 var(--cream);
+    }
+    .input-panel label {
+      display: block;
+      font-size: 0.72rem;
+      font-family: var(--mono);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .input-row {
+      display: flex;
+      gap: 10px;
+    }
+    .input-row textarea {
+      flex: 1;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px 14px;
+      font-family: var(--mono);
+      font-size: 0.95rem;
+      color: var(--ink);
+      background: var(--paper);
+      resize: none;
+      height: 58px;
+      transition: border-color 0.2s;
+    }
+    .input-row textarea:focus {
+      outline: none;
+      border-color: var(--civic);
+    }
+    .btn {
+      cursor: pointer;
+      border: none;
+      border-radius: var(--radius);
+      font-family: var(--sans);
+      font-weight: 700;
+      font-size: 0.88rem;
+      letter-spacing: 0.04em;
+      padding: 0 24px;
+      height: 58px;
+      transition: transform 0.1s, opacity 0.2s;
+    }
+    .btn:active { transform: translateY(1px); }
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .btn-primary {
+      background: var(--civic);
+      color: var(--accent);
+    }
+    .btn-approve {
+      background: var(--success);
+      color: white;
+    }
+    .btn-reject {
+      background: white;
+      color: var(--danger);
+      border: 1.5px solid var(--danger);
+    }
+
+    /* ── Steps Feed ────────────────────────────── */
+    #steps-feed {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .step-card {
+      background: white;
+      border: 1.5px solid var(--border);
+      border-left: 4px solid var(--civic);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      animation: slideIn 0.35s ease both;
+      box-shadow: 2px 2px 0 var(--cream);
+    }
+    .step-card.step-plan   { border-left-color: #5b8ef0; }
+    .step-card.step-reg    { border-left-color: #f0a03a; }
+    .step-card.step-form   { border-left-color: #9b6ef0; }
+    .step-card.step-valid  { border-left-color: var(--success); }
+    .step-card.step-wait   { border-left-color: var(--accent); background: #f9fce8; }
+
+    .step-card .step-label {
+      font-size: 0.68rem;
+      font-family: var(--mono);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .step-card .step-body {
+      font-size: 0.9rem;
+      color: var(--ink);
+      line-height: 1.55;
+      white-space: pre-wrap;
+      font-family: var(--mono);
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Approval Panel ────────────────────────── */
+    #approval-panel {
+      display: none;
+      background: #f9fce8;
+      border: 1.5px solid #c5e050;
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      margin-bottom: 24px;
+      animation: slideIn 0.4s ease both;
+    }
+    #approval-panel h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--civic);
+      margin-bottom: 16px;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 20px;
+      margin-bottom: 20px;
+    }
+    .form-field {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 10px 14px;
+    }
+    .form-field .ff-label {
+      font-size: 0.65rem;
+      font-family: var(--mono);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 3px;
+    }
+    .form-field .ff-value {
+      font-size: 0.9rem;
+      font-family: var(--mono);
+      color: var(--ink);
+      font-weight: 500;
+    }
+    .approval-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    /* ── Result Banner ─────────────────────────── */
+    #result-banner {
+      display: none;
+      padding: 18px 24px;
+      border-radius: var(--radius);
+      font-family: var(--mono);
+      font-size: 0.95rem;
+      font-weight: 500;
+      margin-bottom: 16px;
+      animation: slideIn 0.4s ease both;
+    }
+    #result-banner.success {
+      background: #e8f5ee;
+      border: 1.5px solid var(--success);
+      color: var(--success);
+    }
+    #result-banner.cancelled {
+      background: #fdeaea;
+      border: 1.5px solid var(--danger);
+      color: var(--danger);
+    }
+
+    /* ── Loader ────────────────────────────────── */
+    .loader {
+      display: inline-block;
+      width: 14px; height: 14px;
+      border: 2px solid var(--accent);
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .hidden { display: none !important; }
+
+    /* ── Reset ─────────────────────────────────── */
+    #reset-btn {
+      margin-top: 8px;
+      background: transparent;
+      border: 1.5px solid var(--border);
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      padding: 8px 16px;
+      cursor: pointer;
+      border-radius: var(--radius);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    #reset-btn:hover { border-color: var(--civic); color: var(--civic); }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">⚙ CivicFlow</div>
+  <div class="tagline">AI-Powered Business Registration</div>
+</header>
+
+<div class="container">
+
+  <div class="hero">
+    <h1>Register your<br><span>business</span>, the smart way.</h1>
+    <p>Describe what you're opening. Our AI handles the paperwork — you approve before anything is filed.</p>
+  </div>
+
+  <div class="input-panel">
+    <label>Describe your business</label>
+    <div class="input-row">
+      <textarea id="user-input" placeholder="e.g. I want to register a new food truck business in downtown." rows="2"></textarea>
+      <button class="btn btn-primary" id="start-btn" onclick="startRegistration()">Start →</button>
+    </div>
+  </div>
+
+  <div id="steps-feed"></div>
+
+  <div id="approval-panel">
+    <h2>👤 Your Approval Required</h2>
+    <div class="form-grid" id="form-grid"></div>
+    <div class="approval-actions">
+      <button class="btn btn-approve" onclick="approve(true)">✓ Approve & Submit</button>
+      <button class="btn btn-reject" onclick="approve(false)">✗ Cancel</button>
+    </div>
+  </div>
+
+  <div id="result-banner"></div>
+  <button id="reset-btn" class="hidden" onclick="resetFlow()">↩ Start over</button>
+
+</div>
+
+<script>
+  let currentSession = null;
+
+  const feed       = document.getElementById('steps-feed');
+  const approvalEl = document.getElementById('approval-panel');
+  const resultEl   = document.getElementById('result-banner');
+  const startBtn   = document.getElementById('start-btn');
+  const resetBtn   = document.getElementById('reset-btn');
+  const inputEl    = document.getElementById('user-input');
+
+  const STEP_META = [
+    { key: 'plan',   label: '📋 Plan',         cls: 'step-plan'  },
+    { key: 'reg',    label: '📜 Regulations',  cls: 'step-reg'   },
+    { key: 'form',   label: '📄 Form Drafted', cls: 'step-form'  },
+    { key: 'valid',  label: '✅ Validated',    cls: 'step-valid' },
+    { key: 'wait',   label: '⏸ Awaiting You', cls: 'step-wait'  },
+  ];
+
+  function addCard(label, text, cls) {
+    const card = document.createElement('div');
+    card.className = `step-card ${cls}`;
+    card.innerHTML = `<div class="step-label">${label}</div><div class="step-body">${text}</div>`;
+    feed.appendChild(card);
+    card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function addLoader(label) {
+    const card = document.createElement('div');
+    card.className = 'step-card';
+    card.id = 'loading-card';
+    card.innerHTML = `<div class="step-label"><span class="loader"></span>${label}</div>`;
+    feed.appendChild(card);
+    card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function removeLoader() {
+    const el = document.getElementById('loading-card');
+    if (el) el.remove();
+  }
+
+  async function startRegistration() {
+    const request = inputEl.value.trim();
+    if (!request) return;
+
+    feed.innerHTML = '';
+    approvalEl.style.display = 'none';
+    resultEl.style.display = 'none';
+    resetBtn.classList.add('hidden');
+
+    startBtn.disabled = true;
+    inputEl.disabled = true;
+    addLoader('AI is analyzing your request…');
+
+    try {
+      const res = await fetch('/api/start', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ request })
+      });
+      const data = await res.json();
+      removeLoader();
+
+      if (!res.ok) throw new Error(data.detail || 'Unknown error');
+
+      currentSession = data.session_id;
+
+      // Show pipeline steps progressively
+      const stepTexts = data.steps || [];
+      const meta = STEP_META;
+
+      stepTexts.forEach((text, i) => {
+        const m = meta[i] || { label: `Step ${i+1}`, cls: '' };
+        setTimeout(() => addCard(m.label, text, m.cls), i * 180);
+      });
+
+      // Show approval panel after steps
+      setTimeout(() => {
+        renderFormGrid(data.form, data.validation);
+        approvalEl.style.display = 'block';
+        approvalEl.scrollIntoView({ behavior: 'smooth' });
+      }, stepTexts.length * 180 + 200);
+
+    } catch (err) {
+      removeLoader();
+      addCard('❌ Error', err.message, '');
+      startBtn.disabled = false;
+      inputEl.disabled = false;
+    }
+  }
+
+  function renderFormGrid(form, validation) {
+    const grid = document.getElementById('form-grid');
+    const entries = [
+      ['Applicant',     form.applicant_name  || '—'],
+      ['Business Type', form.business_type   || '—'],
+      ['Validation',    validation           || '—'],
+      ['Fees Ack.',     form.fees_acknowledged ? 'Yes' : 'No'],
+      ['Documents',     (form.documents_attached || []).join(', ') || '—'],
+      ['Session ID',    currentSession       || '—'],
+    ];
+    grid.innerHTML = entries.map(([label, val]) =>
+      `<div class="form-field">
+        <div class="ff-label">${label}</div>
+        <div class="ff-value">${val}</div>
+      </div>`
+    ).join('');
+  }
+
+  async function approve(approved) {
+    approvalEl.querySelectorAll('button').forEach(b => b.disabled = true);
+    addLoader(approved ? 'Submitting application…' : 'Cancelling…');
+
+    try {
+      const res = await fetch('/api/approve', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ session_id: currentSession, approved })
+      });
+      const data = await res.json();
+      removeLoader();
+
+      approvalEl.style.display = 'none';
+
+      resultEl.className = approved ? 'success' : 'cancelled';
+      resultEl.textContent = data.message || (approved ? 'Submitted!' : 'Cancelled.');
+      resultEl.style.display = 'block';
+      resultEl.scrollIntoView({ behavior: 'smooth' });
+
+      resetBtn.classList.remove('hidden');
+    } catch (err) {
+      removeLoader();
+      addCard('❌ Error', err.message, '');
+      approvalEl.querySelectorAll('button').forEach(b => b.disabled = false);
+    }
+  }
+
+  function resetFlow() {
+    feed.innerHTML = '';
+    approvalEl.style.display = 'none';
+    resultEl.style.display = 'none';
+    resetBtn.classList.add('hidden');
+    inputEl.value = '';
+    inputEl.disabled = false;
+    startBtn.disabled = false;
+    currentSession = null;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Enter key submits
+  inputEl.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); startRegistration(); }
+  });
+</script>
+
+</body>
+</html>
