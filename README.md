@@ -78,17 +78,6 @@ civicflow/
 └── README.md
 ```
 
----
-
-## Customizing
-
-**Swap the LLM** — Edit `MODEL_NAME` in `backend/agent.py`. Any Ollama model works.
-
-**Add real regulations** — Replace `search_regulations()` in `agent.py` with a real API call or database lookup.
-
-**Real submission** — Replace `submit_application()` with your government API integration.
-
----
 
 ## License
 
