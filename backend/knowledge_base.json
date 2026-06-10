@@ -1,0 +1,179 @@
+{
+  "regulations": [
+    {
+      "id": "REG-001",
+      "business_type": "food_truck",
+      "keywords": ["food truck", "mobile food", "street food", "food cart", "food van"],
+      "title": "Mobile Food Vendor Registration",
+      "permits": [
+        {"name": "Mobile Food Vendor Permit", "fee": 250, "processing_days": 10},
+        {"name": "Health Department Certificate", "fee": 200, "processing_days": 14},
+        {"name": "Fire Safety Clearance", "fee": 75, "processing_days": 7}
+      ],
+      "required_documents": [
+        "Government-issued photo ID",
+        "Vehicle registration certificate",
+        "Health inspection report (within 6 months)",
+        "Food handler certification",
+        "Proof of commercial vehicle insurance"
+      ],
+      "zoning_restrictions": "Mobile food vendors may not operate within 200 feet of a brick-and-mortar restaurant serving the same cuisine type. Permitted zones: commercial, mixed-use, and designated food truck parks.",
+      "additional_rules": "All mobile food units must display the permit number visibly. Annual renewal required. Must maintain a commissary agreement for food storage and preparation."
+    },
+    {
+      "id": "REG-002",
+      "business_type": "restaurant",
+      "keywords": ["restaurant", "cafe", "diner", "eatery", "bistro", "coffee shop", "bakery", "catering"],
+      "title": "Restaurant and Food Service Establishment",
+      "permits": [
+        {"name": "Food Service Establishment Permit", "fee": 500, "processing_days": 21},
+        {"name": "Health Department Certificate", "fee": 200, "processing_days": 14},
+        {"name": "Liquor License (if applicable)", "fee": 1200, "processing_days": 45},
+        {"name": "Fire Safety Clearance", "fee": 150, "processing_days": 7},
+        {"name": "Signage Permit", "fee": 50, "processing_days": 5}
+      ],
+      "required_documents": [
+        "Government-issued photo ID",
+        "Lease agreement or property deed",
+        "Floor plan with seating capacity",
+        "Health inspection report",
+        "Food handler certifications for all staff",
+        "Certificate of occupancy"
+      ],
+      "zoning_restrictions": "Restaurants permitted in commercial and mixed-use zones only. Establishments exceeding 60 seats require additional parking capacity review.",
+      "additional_rules": "Kitchens must pass health inspection before opening. Grease trap installation mandatory. Noise ordinance compliance required for establishments operating past 10 PM."
+    },
+    {
+      "id": "REG-003",
+      "business_type": "retail",
+      "keywords": ["retail", "shop", "store", "boutique", "clothing", "electronics", "merchandise", "grocery"],
+      "title": "Retail Business Registration",
+      "permits": [
+        {"name": "General Business License", "fee": 150, "processing_days": 7},
+        {"name": "Sales Tax Permit", "fee": 0, "processing_days": 3},
+        {"name": "Signage Permit", "fee": 50, "processing_days": 5}
+      ],
+      "required_documents": [
+        "Government-issued photo ID",
+        "Tax identification number",
+        "Lease agreement or property deed",
+        "Certificate of occupancy",
+        "Proof of business insurance"
+      ],
+      "zoning_restrictions": "Retail operations permitted in commercial, mixed-use, and designated retail zones. Home-based retail requires a home occupation permit.",
+      "additional_rules": "Stores selling age-restricted products (tobacco, alcohol) require additional licensing. ADA compliance mandatory for physical storefronts."
+    },
+    {
+      "id": "REG-004",
+      "business_type": "consulting",
+      "keywords": ["consulting", "freelance", "professional services", "advisory", "accounting", "legal", "marketing agency", "design agency"],
+      "title": "Professional Services and Consulting",
+      "permits": [
+        {"name": "General Business License", "fee": 100, "processing_days": 5},
+        {"name": "Professional License (if regulated)", "fee": 300, "processing_days": 30}
+      ],
+      "required_documents": [
+        "Government-issued photo ID",
+        "Tax identification number",
+        "Professional certification or degree (for regulated professions)",
+        "Proof of professional liability insurance"
+      ],
+      "zoning_restrictions": "Consulting businesses may operate from home with a home occupation permit. No client-facing signage allowed in residential zones.",
+      "additional_rules": "Regulated professions (legal, medical, accounting) require valid state board certification. Home-based businesses limited to two non-resident employees."
+    },
+    {
+      "id": "REG-005",
+      "business_type": "construction",
+      "keywords": ["construction", "contractor", "builder", "renovation", "plumbing", "electrical", "handyman", "landscaping"],
+      "title": "Construction and Contractor Licensing",
+      "permits": [
+        {"name": "Contractor License", "fee": 400, "processing_days": 21},
+        {"name": "General Business License", "fee": 100, "processing_days": 5},
+        {"name": "Surety Bond Filing", "fee": 150, "processing_days": 10}
+      ],
+      "required_documents": [
+        "Government-issued photo ID",
+        "Tax identification number",
+        "Proof of contractor insurance (general liability + workers comp)",
+        "Trade certification or journeyman card",
+        "Surety bond documentation"
+      ],
+      "zoning_restrictions": "Contractor offices permitted in commercial and industrial zones. Equipment storage yards require industrial zoning.",
+      "additional_rules": "Electrical and plumbing contractors must hold specific trade licenses. All projects over $5,000 require permit filing with the building department. License must be displayed at job sites."
+    },
+    {
+      "id": "REG-006",
+      "business_type": "ecommerce",
+      "keywords": ["ecommerce", "e-commerce", "online store", "online business", "dropshipping", "online shop", "web store", "digital"],
+      "title": "E-Commerce and Online Business",
+      "permits": [
+        {"name": "General Business License", "fee": 75, "processing_days": 5},
+        {"name": "Sales Tax Permit", "fee": 0, "processing_days": 3}
+      ],
+      "required_documents": [
+        "Government-issued photo ID",
+        "Tax identification number",
+        "Domain name registration proof",
+        "Privacy policy and terms of service documentation"
+      ],
+      "zoning_restrictions": "Home-based e-commerce operations permitted in all zones. No zoning restrictions apply if no inventory is stored on-site exceeding residential storage limits.",
+      "additional_rules": "Businesses collecting customer data must comply with data protection regulations. Sales tax collection required for in-state customers. International sellers must verify export compliance."
+    },
+    {
+      "id": "REG-007",
+      "business_type": "gym_fitness",
+      "keywords": ["gym", "fitness", "personal trainer", "yoga studio", "martial arts", "sports", "wellness", "pilates", "crossfit"],
+      "title": "Fitness and Wellness Facility",
+      "permits": [
+        {"name": "General Business License", "fee": 150, "processing_days": 7},
+        {"name": "Health Department Clearance", "fee": 100, "processing_days": 10},
+        {"name": "Fire Safety Clearance", "fee": 150, "processing_days": 7},
+        {"name": "Signage Permit", "fee": 50, "processing_days": 5}
+      ],
+      "required_documents": [
+        "Government-issued photo ID",
+        "Tax identification number",
+        "Lease agreement or property deed",
+        "Floor plan with equipment layout",
+        "Proof of liability insurance",
+        "CPR/First Aid certification for staff"
+      ],
+      "zoning_restrictions": "Fitness facilities permitted in commercial and mixed-use zones. Noise impact assessment required if within 100 feet of residential zone.",
+      "additional_rules": "Facilities with pools or saunas require additional health department permits. Membership contracts must comply with consumer protection regulations. AED device required on premises."
+    },
+    {
+      "id": "REG-008",
+      "business_type": "daycare",
+      "keywords": ["daycare", "childcare", "nursery", "preschool", "child care", "after school", "babysitting"],
+      "title": "Childcare and Daycare Facility",
+      "permits": [
+        {"name": "Childcare Facility License", "fee": 350, "processing_days": 30},
+        {"name": "Health Department Clearance", "fee": 100, "processing_days": 10},
+        {"name": "Fire Safety Clearance", "fee": 150, "processing_days": 7},
+        {"name": "General Business License", "fee": 100, "processing_days": 5}
+      ],
+      "required_documents": [
+        "Government-issued photo ID",
+        "Tax identification number",
+        "Background check clearance for all staff",
+        "CPR/First Aid certification for all staff",
+        "Floor plan with designated activity areas",
+        "Proof of liability insurance",
+        "Emergency evacuation plan"
+      ],
+      "zoning_restrictions": "Daycare facilities permitted in commercial, institutional, and mixed-use zones. Home-based daycare limited to 6 children without commercial zoning.",
+      "additional_rules": "Staff-to-child ratios must comply with state regulations. Minimum 35 square feet of indoor space per child required. All staff must complete 40 hours of early childhood education training. Annual inspections mandatory."
+    }
+  ],
+  "general_requirements": {
+    "all_businesses": [
+      "All businesses must register with the Secretary of State",
+      "Employer Identification Number (EIN) required if hiring employees",
+      "Workers compensation insurance required if hiring employees",
+      "Annual renewal required for all permits and licenses",
+      "Businesses must maintain records for a minimum of 5 years"
+    ],
+    "fee_notes": "All fees are one-time application fees unless noted otherwise. Annual renewal fees are typically 60% of the initial fee.",
+    "processing_note": "Processing times are estimates and may vary. Expedited processing available for an additional 50% fee."
+  }
+}
