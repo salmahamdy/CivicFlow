@@ -1,179 +1,237 @@
 {
+  "disclaimer": "Regulation data is modeled on Egypt's business registration framework for demonstration purposes only. Fees are approximate and vary by governorate and over time. This is not legal advice.",
   "regulations": [
     {
-      "id": "REG-001",
+      "id": "EG-001",
       "business_type": "food_truck",
-      "keywords": ["food truck", "mobile food", "street food", "food cart", "food van"],
-      "title": "Mobile Food Vendor Registration",
+      "keywords": ["food truck", "mobile food", "street food", "food cart", "food van", "street vendor"],
+      "keywords_ar": ["عربية أكل", "عربة طعام", "فود ترك", "اكل شوارع", "أكل شوارع", "عربية فول", "كشك أكل"],
+      "title": "Mobile Food Vendor (عربة طعام متنقلة)",
       "permits": [
-        {"name": "Mobile Food Vendor Permit", "fee": 250, "processing_days": 10},
-        {"name": "Health Department Certificate", "fee": 200, "processing_days": 14},
-        {"name": "Fire Safety Clearance", "fee": 75, "processing_days": 7}
+        {"name": "Commercial Registry entry (السجل التجاري)", "fee_egp": 150, "processing_days": 5},
+        {"name": "Tax Card (البطاقة الضريبية) - Egyptian Tax Authority", "fee_egp": 0, "processing_days": 7},
+        {"name": "Municipal street vending / operating license (رخصة تشغيل من الحي)", "fee_egp": 2000, "processing_days": 21},
+        {"name": "Health certificates for food handlers (شهادات صحية)", "fee_egp": 300, "processing_days": 10},
+        {"name": "Vehicle licensing for food use (ترخيص المركبة)", "fee_egp": 1500, "processing_days": 14}
       ],
       "required_documents": [
-        "Government-issued photo ID",
-        "Vehicle registration certificate",
-        "Health inspection report (within 6 months)",
-        "Food handler certification",
-        "Proof of commercial vehicle insurance"
+        "National ID (بطاقة الرقم القومي)",
+        "Vehicle registration and inspection certificate",
+        "Health certificates for all food handlers",
+        "Criminal record certificate (فيش وتشبيه)",
+        "Approval of vehicle layout from health inspector"
       ],
-      "zoning_restrictions": "Mobile food vendors may not operate within 200 feet of a brick-and-mortar restaurant serving the same cuisine type. Permitted zones: commercial, mixed-use, and designated food truck parks.",
-      "additional_rules": "All mobile food units must display the permit number visibly. Annual renewal required. Must maintain a commissary agreement for food storage and preparation."
+      "zoning_restrictions": "Operating locations must be approved by the district (الحي). Vending near schools, hospitals, and government buildings is restricted. Cairo and Giza governorates designate specific food truck zones.",
+      "additional_rules": "All food handlers must hold valid health certificates renewed annually. Vehicle must pass health inspection. Gas cylinder safety approval required from Civil Defense (الدفاع المدني)."
     },
     {
-      "id": "REG-002",
+      "id": "EG-002",
       "business_type": "restaurant",
-      "keywords": ["restaurant", "cafe", "diner", "eatery", "bistro", "coffee shop", "bakery", "catering"],
-      "title": "Restaurant and Food Service Establishment",
+      "keywords": ["restaurant", "cafe", "coffee shop", "bakery", "diner", "eatery", "catering", "koshary", "shawarma"],
+      "keywords_ar": ["مطعم", "كافيه", "قهوة", "مخبز", "فرن", "كشري", "شاورما", "كافتيريا", "مطعم سياحي"],
+      "title": "Restaurant and Food Service (مطعم / منشأة غذائية)",
       "permits": [
-        {"name": "Food Service Establishment Permit", "fee": 500, "processing_days": 21},
-        {"name": "Health Department Certificate", "fee": 200, "processing_days": 14},
-        {"name": "Liquor License (if applicable)", "fee": 1200, "processing_days": 45},
-        {"name": "Fire Safety Clearance", "fee": 150, "processing_days": 7},
-        {"name": "Signage Permit", "fee": 50, "processing_days": 5}
+        {"name": "Commercial Registry entry (السجل التجاري)", "fee_egp": 150, "processing_days": 5},
+        {"name": "Tax Card (البطاقة الضريبية)", "fee_egp": 0, "processing_days": 7},
+        {"name": "Operating license under Law 154/2019 (رخصة تشغيل المحل)", "fee_egp": 5000, "processing_days": 30},
+        {"name": "Civil Defense approval (موافقة الدفاع المدني)", "fee_egp": 1000, "processing_days": 14},
+        {"name": "Health certificates for all staff (شهادات صحية)", "fee_egp": 300, "processing_days": 10},
+        {"name": "Tourism license if tourist-class (ترخيص سياحي)", "fee_egp": 10000, "processing_days": 45}
       ],
       "required_documents": [
-        "Government-issued photo ID",
-        "Lease agreement or property deed",
-        "Floor plan with seating capacity",
-        "Health inspection report",
-        "Food handler certifications for all staff",
-        "Certificate of occupancy"
+        "National ID (بطاقة الرقم القومي)",
+        "Registered lease contract or ownership deed (عقد إيجار موثق)",
+        "Premises floor plan approved by the district",
+        "Health certificates for all food handlers",
+        "Civil Defense fire safety report",
+        "Grease trap and ventilation compliance certificate"
       ],
-      "zoning_restrictions": "Restaurants permitted in commercial and mixed-use zones only. Establishments exceeding 60 seats require additional parking capacity review.",
-      "additional_rules": "Kitchens must pass health inspection before opening. Grease trap installation mandatory. Noise ordinance compliance required for establishments operating past 10 PM."
+      "zoning_restrictions": "Premises must be in commercially licensed buildings. Restaurants in residential buildings require approval from the building's occupants union (اتحاد الشاغلين). Shisha service requires a separate license.",
+      "additional_rules": "Subject to periodic inspection by the Health Ministry and the National Food Safety Authority (NFSA). VAT registration mandatory if annual turnover exceeds EGP 500,000. Social insurance registration required for all employees."
     },
     {
-      "id": "REG-003",
+      "id": "EG-003",
       "business_type": "retail",
-      "keywords": ["retail", "shop", "store", "boutique", "clothing", "electronics", "merchandise", "grocery"],
-      "title": "Retail Business Registration",
+      "keywords": ["retail", "shop", "store", "boutique", "clothing", "electronics", "merchandise", "grocery", "supermarket", "minimarket"],
+      "keywords_ar": ["محل", "متجر", "بوتيك", "ملابس", "سوبر ماركت", "بقالة", "محل تجاري", "الكترونيات", "موبايلات"],
+      "title": "Retail Shop (محل تجاري)",
       "permits": [
-        {"name": "General Business License", "fee": 150, "processing_days": 7},
-        {"name": "Sales Tax Permit", "fee": 0, "processing_days": 3},
-        {"name": "Signage Permit", "fee": 50, "processing_days": 5}
+        {"name": "Commercial Registry entry (السجل التجاري)", "fee_egp": 150, "processing_days": 5},
+        {"name": "Tax Card (البطاقة الضريبية)", "fee_egp": 0, "processing_days": 7},
+        {"name": "Operating license under Law 154/2019 (رخصة تشغيل المحل)", "fee_egp": 3000, "processing_days": 21},
+        {"name": "Civil Defense approval (موافقة الدفاع المدني)", "fee_egp": 500, "processing_days": 10},
+        {"name": "Signage permit (ترخيص لافتة)", "fee_egp": 500, "processing_days": 7}
       ],
       "required_documents": [
-        "Government-issued photo ID",
-        "Tax identification number",
-        "Lease agreement or property deed",
-        "Certificate of occupancy",
-        "Proof of business insurance"
+        "National ID (بطاقة الرقم القومي)",
+        "Registered lease contract or ownership deed (عقد إيجار موثق)",
+        "Premises compliance certificate from the district (الحي)",
+        "Criminal record certificate (فيش وتشبيه)"
       ],
-      "zoning_restrictions": "Retail operations permitted in commercial, mixed-use, and designated retail zones. Home-based retail requires a home occupation permit.",
-      "additional_rules": "Stores selling age-restricted products (tobacco, alcohol) require additional licensing. ADA compliance mandatory for physical storefronts."
+      "zoning_restrictions": "Shop must be in a commercially designated unit. Law 154/2019 streamlined licensing: low-risk shops can operate with a notification license (إخطار) while the full license is processed.",
+      "additional_rules": "VAT registration mandatory if annual turnover exceeds EGP 500,000. Chamber of Commerce membership (الغرفة التجارية) required. Annual license renewal with the district."
     },
     {
-      "id": "REG-004",
+      "id": "EG-004",
       "business_type": "consulting",
-      "keywords": ["consulting", "freelance", "professional services", "advisory", "accounting", "legal", "marketing agency", "design agency"],
-      "title": "Professional Services and Consulting",
+      "keywords": ["consulting", "freelance", "professional services", "advisory", "accounting", "legal", "marketing agency", "design agency", "software", "programming", "translation"],
+      "keywords_ar": ["استشارات", "فريلانس", "محاسبة", "محاماة", "تسويق", "تصميم", "برمجة", "مكتب استشاري", "ترجمة", "شغل حر"],
+      "title": "Professional Services / Freelance (مكتب استشاري / عمل حر)",
       "permits": [
-        {"name": "General Business License", "fee": 100, "processing_days": 5},
-        {"name": "Professional License (if regulated)", "fee": 300, "processing_days": 30}
+        {"name": "Commercial Registry entry or freelance tax file (سجل تجاري أو ملف ضريبي)", "fee_egp": 150, "processing_days": 5},
+        {"name": "Tax Card (البطاقة الضريبية)", "fee_egp": 0, "processing_days": 7},
+        {"name": "Professional syndicate membership if regulated (عضوية النقابة)", "fee_egp": 1000, "processing_days": 30}
       ],
       "required_documents": [
-        "Government-issued photo ID",
-        "Tax identification number",
-        "Professional certification or degree (for regulated professions)",
-        "Proof of professional liability insurance"
+        "National ID (بطاقة الرقم القومي)",
+        "Degree or professional certification (for regulated professions)",
+        "Syndicate membership card (كارنيه النقابة) for lawyers, accountants, engineers, doctors",
+        "Office lease contract (if operating from an office)"
       ],
-      "zoning_restrictions": "Consulting businesses may operate from home with a home occupation permit. No client-facing signage allowed in residential zones.",
-      "additional_rules": "Regulated professions (legal, medical, accounting) require valid state board certification. Home-based businesses limited to two non-resident employees."
+      "zoning_restrictions": "Home-based freelancing is permitted with a simplified tax file. Client-facing offices in residential buildings require occupants union approval.",
+      "additional_rules": "Regulated professions (law, accounting, engineering, medicine) require active syndicate membership. Freelancers can register under the simplified tax regime for small earners. Egypt's 2023+ freelance tax framework offers simplified flat-rate options for income below thresholds."
     },
     {
-      "id": "REG-005",
+      "id": "EG-005",
       "business_type": "construction",
-      "keywords": ["construction", "contractor", "builder", "renovation", "plumbing", "electrical", "handyman", "landscaping"],
-      "title": "Construction and Contractor Licensing",
+      "keywords": ["construction", "contractor", "builder", "renovation", "plumbing", "electrical", "finishing", "landscaping"],
+      "keywords_ar": ["مقاولات", "بناء", "تشطيبات", "سباكة", "كهرباء", "مقاول", "ترميم", "ديكور"],
+      "title": "Construction and Contracting (مقاولات)",
       "permits": [
-        {"name": "Contractor License", "fee": 400, "processing_days": 21},
-        {"name": "General Business License", "fee": 100, "processing_days": 5},
-        {"name": "Surety Bond Filing", "fee": 150, "processing_days": 10}
+        {"name": "Commercial Registry entry (السجل التجاري)", "fee_egp": 150, "processing_days": 5},
+        {"name": "Tax Card (البطاقة الضريبية)", "fee_egp": 0, "processing_days": 7},
+        {"name": "Egyptian Federation for Construction Contractors registration (الاتحاد المصري لمقاولي التشييد والبناء)", "fee_egp": 5000, "processing_days": 45},
+        {"name": "Social insurance employer file (ملف تأمينات)", "fee_egp": 0, "processing_days": 14}
       ],
       "required_documents": [
-        "Government-issued photo ID",
-        "Tax identification number",
-        "Proof of contractor insurance (general liability + workers comp)",
-        "Trade certification or journeyman card",
-        "Surety bond documentation"
+        "National ID (بطاقة الرقم القومي)",
+        "Engineer's syndicate membership for technical manager (كارنيه نقابة المهندسين)",
+        "Proof of capital and equipment",
+        "Federation classification certificate (شهادة تصنيف)"
       ],
-      "zoning_restrictions": "Contractor offices permitted in commercial and industrial zones. Equipment storage yards require industrial zoning.",
-      "additional_rules": "Electrical and plumbing contractors must hold specific trade licenses. All projects over $5,000 require permit filing with the building department. License must be displayed at job sites."
+      "zoning_restrictions": "Equipment storage yards require approval from the district and may need industrial zoning. Site work requires building permits per project from the local administrative unit.",
+      "additional_rules": "Contractor classification (degrees 1-7) by the Federation determines maximum project size. Social insurance for construction workers is mandatory and inspected. Each project requires a separate building permit (رخصة بناء)."
     },
     {
-      "id": "REG-006",
+      "id": "EG-006",
       "business_type": "ecommerce",
-      "keywords": ["ecommerce", "e-commerce", "online store", "online business", "dropshipping", "online shop", "web store", "digital"],
-      "title": "E-Commerce and Online Business",
+      "keywords": ["ecommerce", "e-commerce", "online store", "online business", "dropshipping", "online shop", "instagram shop", "facebook shop", "web store"],
+      "keywords_ar": ["تجارة الكترونية", "متجر الكتروني", "اونلاين", "بيع اون لاين", "متجر انستجرام", "بيع على فيسبوك", "دروب شيبينج"],
+      "title": "E-Commerce / Online Business (تجارة إلكترونية)",
       "permits": [
-        {"name": "General Business License", "fee": 75, "processing_days": 5},
-        {"name": "Sales Tax Permit", "fee": 0, "processing_days": 3}
+        {"name": "Commercial Registry entry (السجل التجاري)", "fee_egp": 150, "processing_days": 5},
+        {"name": "Tax Card (البطاقة الضريبية)", "fee_egp": 0, "processing_days": 7},
+        {"name": "VAT registration if turnover > EGP 500,000 (التسجيل في القيمة المضافة)", "fee_egp": 0, "processing_days": 10}
       ],
       "required_documents": [
-        "Government-issued photo ID",
-        "Tax identification number",
-        "Domain name registration proof",
-        "Privacy policy and terms of service documentation"
+        "National ID (بطاقة الرقم القومي)",
+        "Address proof (home address acceptable for online-only)",
+        "Bank account or e-payment provider agreement"
       ],
-      "zoning_restrictions": "Home-based e-commerce operations permitted in all zones. No zoning restrictions apply if no inventory is stored on-site exceeding residential storage limits.",
-      "additional_rules": "Businesses collecting customer data must comply with data protection regulations. Sales tax collection required for in-state customers. International sellers must verify export compliance."
+      "zoning_restrictions": "Online-only businesses can register from a home address. Storing commercial inventory at home beyond personal-use scale may require district approval.",
+      "additional_rules": "Egypt's e-commerce tax framework requires registration of online sellers; the ETA actively monitors social-media commerce. Consumer Protection Law 181/2018 requires clear return policies and seller identification on the storefront."
     },
     {
-      "id": "REG-007",
+      "id": "EG-007",
       "business_type": "gym_fitness",
       "keywords": ["gym", "fitness", "personal trainer", "yoga studio", "martial arts", "sports", "wellness", "pilates", "crossfit"],
-      "title": "Fitness and Wellness Facility",
+      "keywords_ar": ["جيم", "نادي رياضي", "لياقة", "يوجا", "كاراتيه", "كمال أجسام", "صالة ألعاب", "مدرب شخصي"],
+      "title": "Gym and Fitness Facility (صالة رياضية / جيم)",
       "permits": [
-        {"name": "General Business License", "fee": 150, "processing_days": 7},
-        {"name": "Health Department Clearance", "fee": 100, "processing_days": 10},
-        {"name": "Fire Safety Clearance", "fee": 150, "processing_days": 7},
-        {"name": "Signage Permit", "fee": 50, "processing_days": 5}
+        {"name": "Commercial Registry entry (السجل التجاري)", "fee_egp": 150, "processing_days": 5},
+        {"name": "Tax Card (البطاقة الضريبية)", "fee_egp": 0, "processing_days": 7},
+        {"name": "Ministry of Youth and Sports license (ترخيص وزارة الشباب والرياضة)", "fee_egp": 5000, "processing_days": 60},
+        {"name": "Operating license from the district (رخصة تشغيل)", "fee_egp": 3000, "processing_days": 21},
+        {"name": "Civil Defense approval (موافقة الدفاع المدني)", "fee_egp": 1000, "processing_days": 14}
       ],
       "required_documents": [
-        "Government-issued photo ID",
-        "Tax identification number",
-        "Lease agreement or property deed",
+        "National ID (بطاقة الرقم القومي)",
+        "Registered lease contract (عقد إيجار موثق)",
         "Floor plan with equipment layout",
-        "Proof of liability insurance",
-        "CPR/First Aid certification for staff"
+        "Certified trainers' qualifications",
+        "First aid readiness certificate"
       ],
-      "zoning_restrictions": "Fitness facilities permitted in commercial and mixed-use zones. Noise impact assessment required if within 100 feet of residential zone.",
-      "additional_rules": "Facilities with pools or saunas require additional health department permits. Membership contracts must comply with consumer protection regulations. AED device required on premises."
+      "zoning_restrictions": "Gyms in residential buildings need occupants union approval and noise compliance. Mixed or ladies-only designation must be declared in the license.",
+      "additional_rules": "Ministry of Youth and Sports inspects facilities and trainer certifications. Liability insurance recommended. Health certificates required for staff at facilities with juice bars or cafes."
     },
     {
-      "id": "REG-008",
+      "id": "EG-008",
       "business_type": "daycare",
-      "keywords": ["daycare", "childcare", "nursery", "preschool", "child care", "after school", "babysitting"],
-      "title": "Childcare and Daycare Facility",
+      "keywords": ["daycare", "childcare", "nursery", "preschool", "child care", "after school", "kindergarten"],
+      "keywords_ar": ["حضانة", "روضة", "رعاية أطفال", "كي جي", "حضانه", "دار حضانة"],
+      "title": "Nursery / Daycare (حضانة)",
       "permits": [
-        {"name": "Childcare Facility License", "fee": 350, "processing_days": 30},
-        {"name": "Health Department Clearance", "fee": 100, "processing_days": 10},
-        {"name": "Fire Safety Clearance", "fee": 150, "processing_days": 7},
-        {"name": "General Business License", "fee": 100, "processing_days": 5}
+        {"name": "Ministry of Social Solidarity nursery license (ترخيص وزارة التضامن الاجتماعي)", "fee_egp": 2000, "processing_days": 60},
+        {"name": "Tax Card (البطاقة الضريبية)", "fee_egp": 0, "processing_days": 7},
+        {"name": "Civil Defense approval (موافقة الدفاع المدني)", "fee_egp": 1000, "processing_days": 14},
+        {"name": "Health clearance of premises (موافقة صحية)", "fee_egp": 500, "processing_days": 14}
       ],
       "required_documents": [
-        "Government-issued photo ID",
-        "Tax identification number",
-        "Background check clearance for all staff",
-        "CPR/First Aid certification for all staff",
-        "Floor plan with designated activity areas",
-        "Proof of liability insurance",
+        "National ID of the license holder (بطاقة الرقم القومي)",
+        "Criminal record certificates for ALL staff (فيش وتشبيه لجميع العاملين)",
+        "Health certificates for all staff",
+        "Premises plan meeting space-per-child standards",
+        "Qualifications of the nursery director (مديرة الحضانة)",
         "Emergency evacuation plan"
       ],
-      "zoning_restrictions": "Daycare facilities permitted in commercial, institutional, and mixed-use zones. Home-based daycare limited to 6 children without commercial zoning.",
-      "additional_rules": "Staff-to-child ratios must comply with state regulations. Minimum 35 square feet of indoor space per child required. All staff must complete 40 hours of early childhood education training. Annual inspections mandatory."
+      "zoning_restrictions": "Ground-floor premises with outdoor space strongly preferred; upper floors face stricter approval. Must meet Ministry of Social Solidarity space and safety standards per child.",
+      "additional_rules": "Nurseries are licensed and inspected by the Ministry of Social Solidarity under the Child Law. Director must meet qualification requirements (education degree or equivalent). Staff-to-child ratios and periodic inspections are mandatory. ENHANCED REVIEW APPLIES."
+    },
+    {
+      "id": "EG-009",
+      "business_type": "pharmacy",
+      "keywords": ["pharmacy", "drugstore", "chemist", "medications", "pharmaceutical"],
+      "keywords_ar": ["صيدلية", "أدوية", "صيدلي", "دواء"],
+      "title": "Pharmacy (صيدلية)",
+      "permits": [
+        {"name": "Ministry of Health pharmacy license (ترخيص وزارة الصحة)", "fee_egp": 5000, "processing_days": 90},
+        {"name": "Pharmacists Syndicate approval (موافقة نقابة الصيادلة)", "fee_egp": 2000, "processing_days": 30},
+        {"name": "Tax Card (البطاقة الضريبية)", "fee_egp": 0, "processing_days": 7},
+        {"name": "Commercial Registry entry (السجل التجاري)", "fee_egp": 150, "processing_days": 5}
+      ],
+      "required_documents": [
+        "Pharmacy degree and syndicate membership of the licensed pharmacist (بكالوريوس صيدلة + عضوية النقابة)",
+        "National ID (بطاقة الرقم القومي)",
+        "Registered lease contract (عقد إيجار موثق)",
+        "Premises plan meeting Ministry of Health specifications",
+        "Distance compliance certificate (minimum distance from existing pharmacies)"
+      ],
+      "zoning_restrictions": "Egyptian law enforces a minimum distance between pharmacies (per Pharmacy Practice Law 127/1955 and amendments). Premises must meet Ministry of Health area and storage specifications including refrigeration.",
+      "additional_rules": "Only licensed pharmacists may own and operate pharmacies. A pharmacist must be present during all operating hours. Controlled substances require a separate ledger and EDA (Egyptian Drug Authority) compliance. ENHANCED REVIEW APPLIES."
+    },
+    {
+      "id": "EG-010",
+      "business_type": "import_export",
+      "keywords": ["import", "export", "trading company", "customs", "wholesale trade", "international trade"],
+      "keywords_ar": ["استيراد", "تصدير", "تجارة دولية", "جمارك", "شركة استيراد وتصدير"],
+      "title": "Import / Export Company (استيراد وتصدير)",
+      "permits": [
+        {"name": "Commercial Registry entry - company form required (السجل التجاري)", "fee_egp": 500, "processing_days": 7},
+        {"name": "Tax Card + VAT registration (البطاقة الضريبية والقيمة المضافة)", "fee_egp": 0, "processing_days": 10},
+        {"name": "Importers Registry enrollment (سجل المستوردين - GOEIC)", "fee_egp": 10000, "processing_days": 45},
+        {"name": "Exporters Registry enrollment (سجل المصدرين)", "fee_egp": 2000, "processing_days": 21}
+      ],
+      "required_documents": [
+        "National ID (بطاقة الرقم القومي)",
+        "Commercial registry extract showing import/export activity",
+        "Minimum capital proof (Importers Registry requires significant declared capital)",
+        "Bank certificate",
+        "Criminal record certificate (فيش وتشبيه)"
+      ],
+      "zoning_restrictions": "Registered office required; warehouses require separate licensing from the district and Civil Defense.",
+      "additional_rules": "Importers Registry (per Law 121/1982 and amendments) imposes capital and Egyptian-ownership requirements. GOEIC (General Organization for Export and Import Control) handles inspection. Customs registration via Nafeza single-window platform is mandatory. ENHANCED REVIEW APPLIES."
     }
   ],
   "general_requirements": {
     "all_businesses": [
-      "All businesses must register with the Secretary of State",
-      "Employer Identification Number (EIN) required if hiring employees",
-      "Workers compensation insurance required if hiring employees",
-      "Annual renewal required for all permits and licenses",
-      "Businesses must maintain records for a minimum of 5 years"
+      "Commercial Registry entry (السجل التجاري) via GAFI or the Chamber of Commerce",
+      "Tax Card (البطاقة الضريبية) from the Egyptian Tax Authority (ETA)",
+      "VAT registration mandatory if annual turnover exceeds EGP 500,000 (standard rate 14%)",
+      "Social insurance employer registration (التأمينات الاجتماعية) required when hiring employees",
+      "Chamber of Commerce membership (الغرفة التجارية) for commercial activities",
+      "E-invoicing enrollment with the ETA for registered businesses"
     ],
-    "fee_notes": "All fees are one-time application fees unless noted otherwise. Annual renewal fees are typically 60% of the initial fee.",
-    "processing_note": "Processing times are estimates and may vary. Expedited processing available for an additional 50% fee."
+    "fee_notes": "Fees are approximate, in Egyptian pounds (EGP), and vary by governorate, declared capital, and over time. Commercial registry annual subscription is approximately 0.002% of declared capital (min EGP 24, max EGP 2,000).",
+    "processing_note": "Processing times are estimates. Law 154/2019 introduced streamlined notification-based licensing (إخطار) for low-risk activities."
   }
 }

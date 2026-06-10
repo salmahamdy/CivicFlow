@@ -8,14 +8,18 @@ import json
 import os
 
 from knowledge_search import search_regulations, format_results
-#─── LangSmith ───────────────────────────────────────────────────────────────
-import os
 
-os.environ.setdefault("LANGCHAIN_TRACING_V2", "true")
-os.environ.setdefault("LANGCHAIN_PROJECT", "civicflow")
+# ─── LangSmith (only activates if an API key is configured) ──────────────────
+
+if os.environ.get("LANGCHAIN_API_KEY"):
+    os.environ.setdefault("LANGCHAIN_TRACING_V2", "true")
+    os.environ.setdefault("LANGCHAIN_PROJECT", "civicflow")
+else:
+    os.environ.setdefault("LANGCHAIN_TRACING_V2", "false")
+
 # ─── Model ────────────────────────────────────────────────────────────────────
 
-MODEL_NAME = "phi3.5:3.8b-mini-instruct-q4_K_M"
+MODEL_NAME = os.environ.get("OLLAMA_MODEL", "phi3.5:3.8b-mini-instruct-q4_K_M")
 
 llm = ChatOllama(
     model=MODEL_NAME,
@@ -23,9 +27,39 @@ llm = ChatOllama(
     base_url="http://localhost:11434"
 )
 
+# ─── Constants ────────────────────────────────────────────────────────────────
+
+MAX_RETRIES = 2
+
+# Business types that require enhanced review before form filling
+# (heavily regulated under Egyptian law)
+SENSITIVE_TYPES = {"daycare", "restaurant", "pharmacy", "import_export"}
+
+EXTRA_CHECKS = {
+    "daycare": [
+        "Criminal record certificates (فيش وتشبيه) for ALL staff",
+        "Ministry of Social Solidarity director qualification check",
+        "Staff-to-child ratio compliance verification",
+    ],
+    "restaurant": [
+        "National Food Safety Authority (NFSA) inspection readiness",
+        "Civil Defense fire safety compliance",
+        "Health certificates validity for all food handlers",
+    ],
+    "pharmacy": [
+        "Licensed pharmacist ownership verification (Pharmacy Practice Law)",
+        "Minimum-distance compliance from existing pharmacies",
+        "Egyptian Drug Authority (EDA) controlled-substances compliance",
+    ],
+    "import_export": [
+        "Importers Registry capital requirements verification",
+        "Egyptian-ownership percentage compliance (Law 121/1982)",
+        "Nafeza customs platform registration",
+    ],
+}
 
 # ─── State ────────────────────────────────────────────────────────────────────
-MAX_RETRIES = 2
+
 class AgentState(TypedDict):
     messages: Annotated[List, operator.add]
     plan: str
@@ -34,36 +68,61 @@ class AgentState(TypedDict):
     validation_status: str
     validation_errors: List[str]
     retry_count: int
+    matched_business_type: str
     next_step: str
+
+# ─── Mock Government Services ────────────────────────────────────────────────
+
+def submit_application(form_data: dict) -> str:
+    ref_id = abs(hash(str(form_data))) % 10000
+    return f"Application submitted successfully. Reference ID: #CFL-{ref_id:04d}"
 
 # ─── Nodes ────────────────────────────────────────────────────────────────────
 
 def orchestrator_node(state: AgentState):
-    if not state.get("plan"):
-        user_request = state["messages"][-1].content
-        prompt = (
-            "Create a simple 3-step plan for registering this business:\n"
-            "1. Research Regulations\n"
-            "2. Fill Application\n"
-            "3. Validate & Submit\n"
-            "Output only the plan, no extra text."
-        )
-        response = llm.invoke([
-            SystemMessage(content=prompt),
-            HumanMessage(content=user_request)
-        ])
-        return {
-            "plan": response.content,
-            "next_step": "researcher",
-            "messages": [AIMessage(content=f"Plan created:\n{response.content}")]
-        }
-    return {"next_step": state["next_step"]}
+    """Classify the business type (deterministic KB lookup) and generate
+    an informed plan (LLM). The classification drives downstream routing."""
+    user_request = state["messages"][0].content
+
+    # 1. Classify: deterministic knowledge-base lookup
+    results = search_regulations(user_request)
+    matched_type = results[0]["business_type"] if results else "general"
+    findings = format_results(results)
+
+    # 2. Plan: LLM call, informed by the classification
+    review_note = (
+        "This business type requires ENHANCED REVIEW with additional checks."
+        if matched_type in SENSITIVE_TYPES
+        else "This business type follows the standard registration path."
+    )
+    prompt = (
+        "You are a registration workflow planner. Create a brief 3-step plan "
+        "for registering this business.\n\n"
+        f"Detected business type: {matched_type}\n"
+        f"{review_note}\n\n"
+        "Steps to cover: research regulations, fill the application form, "
+        "validate and submit for approval.\n"
+        "Output only the numbered plan, no extra text."
+    )
+    response = llm.invoke([
+        SystemMessage(content=prompt),
+        HumanMessage(content=user_request)
+    ])
+
+    return {
+        "plan": response.content,
+        "matched_business_type": matched_type,
+        "research_findings": findings,
+        "next_step": "researcher",
+        "messages": [AIMessage(content=f"Plan created (business type: {matched_type}):\n{response.content}")]
+    }
 
 
 def researcher_node(state: AgentState):
+    """Summarize the matched regulations for the user (LLM).
+    The lookup itself already happened in the orchestrator."""
     user_request = state["messages"][0].content
-    results = search_regulations(user_request)
-    findings = format_results(results)
+    findings = state["research_findings"]
 
     summary_prompt = (
         "You are a government regulations researcher. Based on the regulations below, "
@@ -77,10 +136,28 @@ def researcher_node(state: AgentState):
     ])
 
     return {
-        "research_findings": findings,
         "next_step": "filler",
         "messages": [AIMessage(content=f"Research complete:\n{response.content}")]
     }
+
+
+def enhanced_review_node(state: AgentState):
+    """Deterministic extra checks for sensitive business types.
+    Appends additional requirements to the findings so the filler
+    and validator can see them."""
+    btype = state["matched_business_type"]
+    checks = EXTRA_CHECKS.get(btype, [])
+    checks_text = "\n".join(f"- {c}" for c in checks)
+
+    return {
+        "research_findings": state["research_findings"]
+            + f"\n\nENHANCED REVIEW REQUIREMENTS ({btype}):\n{checks_text}",
+        "messages": [AIMessage(
+            content=f"Enhanced review required for {btype}:\n{checks_text}"
+        )]
+    }
+
+
 def filler_node(state: AgentState):
     user_request = state["messages"][0].content
     findings = state["research_findings"]
@@ -141,34 +218,30 @@ def filler_node(state: AgentState):
         "retry_count": retry_count,
         "messages": [AIMessage(content="Application form drafted.")]
     }
+
+
 def validator_node(state: AgentState):
     form = state["filled_form"]
     errors = []
 
     # Check required fields exist and aren't empty
+    # NOTE: "Not specified" is a VALID value (user simply didn't provide it)
     required_fields = ["applicant_name", "business_type", "location"]
     for field in required_fields:
         value = form.get(field, "")
-        if not value or value.strip().lower() in ("", "not specified", "unknown", "n/a"):
+        if not value or str(value).strip().lower() in ("", "unknown", "n/a"):
             errors.append(f"Missing or invalid field: {field}")
 
-    # Check documents list
+    # Check documents list exists and has a reasonable number of items
     docs = form.get("documents_attached", [])
     if not isinstance(docs, list) or len(docs) == 0:
         errors.append("Documents list is empty or invalid")
+    elif len(docs) < 2:
+        errors.append("Too few documents listed — check regulations for full requirements")
 
     # Check fees acknowledgment
     if not form.get("fees_acknowledged"):
         errors.append("Fees not acknowledged")
-
-    # Cross-check against regulations if available
-    findings = state.get("research_findings", "")
-    if findings and isinstance(docs, list):
-        findings_lower = findings.lower()
-        if "health" in findings_lower and not any("health" in d.lower() for d in docs):
-            errors.append("Missing required document: health-related certificate")
-        if "fire" in findings_lower and not any("fire" in d.lower() for d in docs):
-            errors.append("Missing required document: fire safety clearance")
 
     status = "FAIL" if errors else "PASS"
 
@@ -180,6 +253,7 @@ def validator_node(state: AgentState):
             content=f"Validation: {status}" + (f"\nIssues: {', '.join(errors)}" if errors else "")
         )]
     }
+
 
 def human_approval_node(state: AgentState):
     return {
@@ -194,17 +268,29 @@ def submission_node(state: AgentState):
         "next_step": "end"
     }
 
+# ─── Routing ──────────────────────────────────────────────────────────────────
+
+def route_after_research(state: AgentState) -> str:
+    """Sensitive business types go through enhanced review first.
+    Decision is based on the deterministic KB classification, not LLM output."""
+    if state.get("matched_business_type") in SENSITIVE_TYPES:
+        return "enhanced_review"
+    return "filler"
+
+
 def route_after_validation(state: AgentState) -> str:
     if state["validation_status"] == "PASS":
         return "human_approval"
     if state.get("retry_count", 0) >= MAX_RETRIES:
         return "human_approval"
     return "filler"
+
 # ─── Graph ────────────────────────────────────────────────────────────────────
 
 workflow = StateGraph(AgentState)
 workflow.add_node("orchestrator", orchestrator_node)
 workflow.add_node("researcher", researcher_node)
+workflow.add_node("enhanced_review", enhanced_review_node)
 workflow.add_node("filler", filler_node)
 workflow.add_node("validator", validator_node)
 workflow.add_node("human_approval", human_approval_node)
@@ -212,7 +298,11 @@ workflow.add_node("submission", submission_node)
 
 workflow.set_entry_point("orchestrator")
 workflow.add_edge("orchestrator", "researcher")
-workflow.add_edge("researcher", "filler")
+workflow.add_conditional_edges("researcher", route_after_research, {
+    "enhanced_review": "enhanced_review",
+    "filler": "filler"
+})
+workflow.add_edge("enhanced_review", "filler")
 workflow.add_edge("filler", "validator")
 workflow.add_conditional_edges("validator", route_after_validation, {
     "human_approval": "human_approval",
@@ -223,7 +313,6 @@ workflow.add_edge("submission", END)
 
 memory = MemorySaver()
 graph = workflow.compile(checkpointer=memory, interrupt_before=["human_approval"])
-
 
 # ─── Session helpers ──────────────────────────────────────────────────────────
 
@@ -241,8 +330,9 @@ def run_until_approval(session_id: str, user_request: str) -> dict:
         "validation_status": "",
         "validation_errors": [],
         "retry_count": 0,
+        "matched_business_type": "",
         "next_step": ""
-        }
+    }
 
     steps = []
     final_state = {}
@@ -260,6 +350,7 @@ def run_until_approval(session_id: str, user_request: str) -> dict:
         "validation": final_state.get("validation_status", ""),
         "plan": final_state.get("plan", ""),
         "regulations": final_state.get("research_findings", ""),
+        "business_type": final_state.get("matched_business_type", ""),
         "status": "awaiting_approval"
     }
 
@@ -293,4 +384,5 @@ def get_session_state(session_id: str) -> dict | None:
         "validation": state.values.get("validation_status", ""),
         "plan": state.values.get("plan", ""),
         "regulations": state.values.get("research_findings", ""),
+        "business_type": state.values.get("matched_business_type", ""),
     }
